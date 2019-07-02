@@ -21,7 +21,7 @@ class windowsSys:
             with open('winSys_info_' + w.timeStr + '.txt', "a") as myFile:
                 myFile.write("\n\nThe command that was run was\n" + command + " with output" + "\n\n")
 
-            output = subprocess.Popen(command + '>> winSys_info_' + w.timeStr + '.txt',  stdout=subprocess.PIPE, shell=True)
+            output = subprocess.Popen(command + '>> /linux/winSys_info_' + w.timeStr + '.txt',  stdout=subprocess.PIPE, shell=True)
             o  = output.communicate()
             # p1.stdout.close()
             print(command)

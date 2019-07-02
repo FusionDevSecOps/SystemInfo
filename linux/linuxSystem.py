@@ -1,3 +1,5 @@
+#!/usr/bin python3
+
 import subprocess
 import time
 
@@ -16,10 +18,10 @@ class linux:
 
         try:
 
-            with open('LinuxSys_info_' + l.timeStr + '.txt', "a") as myFile:
-                myFile.write("\n\nThe command that was run was\n" + command + "with output" + "\n\n")
+            with open('linux/linuxSys_info_' + l.timeStr + '.txt', "a") as myFile:
+                myFile.write("\n\nThe command that was run was\n" + command + "\n\n with output" + "\n\n")
 
-            output = subprocess.Popen(command + '>> LinuxSys_info_' + l.timeStr + '.txt', stdout=subprocess.PIPE,shell=True)
+            output = subprocess.Popen(command + '>> linux/linuxSys_info_' + l.timeStr + '.txt', stdout=subprocess.PIPE,shell=True)
             o = output.communicate()
             # p1.stdout.close()
             print(command)
@@ -47,8 +49,8 @@ class linux:
         #List the hardware and add to a text file
         l.command2('apt-get update')
         l.command2('apt-get install lshw')
-        # l.command1('sudo lshw -short')
-        # l.command1('lshw > linux/linuxSysInfo.txt')
+        l.command1('sudo lshw -short')
+        l.command1('lshw ')
 
         l.command2('lshw ')
 
@@ -63,27 +65,27 @@ class linux:
 
 
 # B Software inventory items like: list of softwares installed in a machine, OS version & patch details
-#         l.command1('apt list')
-        l.command1('lsb_release -a ')
+#        l.command1('apt list')
+#        l.command1('lsb_release -a ')
 
 # C Driver/Firmware details like Drivers/firmware installed like Soundcard, motherboard, network
-        l.command1('service --status-all')
+#        l.command1('service --status-all')
 
 #D Running services
         l.command1('service --status-all')
 
-        # l.command1('ls -1 /lib/systemd/system/*.service /etc/systemd/system/*.service ')
+        l.command1('ls -1 /lib/systemd/system/*.service /etc/systemd/system/*.service ')
 
 
 #E Hostname, List of startup programs
-        l.command1('cat /proc/sys/kernel/hostname')
+        l.command1('cat /proc/sys/k	ernel/hostname')
 
-        # l.command1('find / -name "*autostart*" ')
-        # l.command1('ls -1 "/etc/xdg/autostart" "/home/$USER/.config/autostart" "/usr/share/gdm/autostart"  "/usr/share/gnome/autostart" ')
+        l.command1('find / -name "*autostart*" ')
+        l.command1('ls -1 "/etc/xdg/autostart" "/home/$USER/.config/autostart" "/usr/share/gdm/autostart"  "/usr/share/gnome/autostart" ')
 
 
 #F List of mounted drives/mapped network locations
-        # l.command1('lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL ')   #failure to access sysfs /sys/dev/block
+        l.command1('lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL ')   #failure to access sysfs /sys/dev/block
 
 
 #G List of environment settings/variables
