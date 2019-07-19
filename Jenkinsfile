@@ -8,7 +8,7 @@ node {
 
 stage 'Run Script'
 node{
-	bat label: '', script: 'Oscheck.py'
+	bat label: '', script: 'python Oscheck.py'
 
 	stage 'Notify user'
 	node{
