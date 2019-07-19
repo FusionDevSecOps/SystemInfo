@@ -1,8 +1,8 @@
 stage 'Access repository'
 node {
 
-    git branch: 'master', 
-    url: 'https://github.com/ColmCharlton/WebNounExtractorJenkins'
+    git branch: 'modify', 
+    url: 'https://github.com/ColmCharlton/SystemInfo'
 		
 	}
 
