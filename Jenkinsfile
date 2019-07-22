@@ -21,7 +21,6 @@ node{
 //       sh 'python test.py'
  //     }
 
-}
 
 def notify(status){
     emailext (
