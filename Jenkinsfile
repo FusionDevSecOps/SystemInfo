@@ -1,3 +1,4 @@
+
 stage 'Access repository'
 node {
 
@@ -15,13 +16,12 @@ node{
 	notify 'Ran!'
 	}
 }
-stage 'Run tests'
-node{
-       sh 'python test.py'
-      }
+//stage 'Run tests'
+//node{
+//       sh 'python test.py'
+ //     }
+
 }
-
-
 
 def notify(status){
     emailext (
