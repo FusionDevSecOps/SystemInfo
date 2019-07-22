@@ -15,6 +15,12 @@ node{
 	notify 'Ran!'
 	}
 }
+stage 'Run tests'
+node{
+       sh 'python test.py'
+      }
+}
+
 
 
 def notify(status){
