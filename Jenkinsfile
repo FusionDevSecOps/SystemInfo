@@ -51,7 +51,6 @@ def checkOs(){
     if (isUnix()) {
            return "Linux"
         }
-    }
     else {
         return "Windows"
     }
