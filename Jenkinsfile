@@ -8,6 +8,16 @@ node {
 	}
 
 
+stage 'Run Script'
+node{
+
+withPythonEnv('some-python-installation') {
+	// Creates the virtualenv before proceeding
+	bat label: '', script: 'pip install nose'
+	//sh 'pip install nose'
+}
+}
+
 
 stage 'Run Script'
 node{
