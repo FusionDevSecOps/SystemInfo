@@ -35,7 +35,15 @@ node{
 
 stage 'Run tests'
 node{
+if (isUnix()) {
+           //return "Linux"
+       sh 'python unitTests.py'
+    }
+    else {
+        //return "Windows"
        bat label: '', script: 'python unitTests.py'
+    }
+       //bat label: '', script: 'python unitTests.py'
        //sh 'python unitTests.py'
 
 }
