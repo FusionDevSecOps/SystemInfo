@@ -28,11 +28,6 @@ node{
     }
 }
 
-stage 'Notify user'
-node{
-	notify 'Ran!'
-	}
-
 stage 'Run tests'
 node{
 if (isUnix()) {
@@ -47,6 +42,10 @@ if (isUnix()) {
        //sh 'python unitTests.py'
 
 }
+stage 'Notify user'
+node{
+	notify 'Run successful)
+	}
 
 
 def notify(status){
