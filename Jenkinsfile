@@ -44,7 +44,7 @@ if (isUnix()) {
 }
 stage 'Notify user'
 node{
-	notify 'Run successful)
+	notify 'Run successfully'
 	}
 
 
