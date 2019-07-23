@@ -10,6 +10,8 @@ node {
 stage 'Run Script'
 node{
 
+    if (System.env['OS'].contains('Windows')){ println "it's Windows" }
+
 	bat label: '', script: 'python Oscheck.py'
 	//sh: 'python Oscheck.py'
 
