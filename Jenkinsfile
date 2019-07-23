@@ -19,15 +19,14 @@ stage 'Run Script'
 node{
 
     if (isUnix()) {
-           return "Linux"
+           //return "Linux"
+           sh: 'python Oscheck.py'
         }
     else {
         return "Windows"
+        bat label: '', script: 'python Oscheck.py'
     }
-
-    //sh: 'python Oscheck.py'
-    bat label: '', script: 'python Oscheck.py'
-    }
+}
 
 stage 'Notify user'
 node{
