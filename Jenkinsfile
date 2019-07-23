@@ -20,7 +20,7 @@ node{
 
     if (isUnix()) {
            //return "Linux"
-           sh: 'python Oscheck.py'
+           sh: 'python3 Oscheck.py'
         }
     else {
         return "Windows"
