@@ -7,14 +7,21 @@ node {
 		
 	}
 
+
 stage 'Run Script'
 node{
 
-    if (System.env['OS'].contains('Windows')){ println "it's Windows" }
+    checkOs
+}
+
+
+stage 'Run Script'
+node{
+
+    //sh: 'python Oscheck.py'
+
 
 	bat label: '', script: 'python Oscheck.py'
-	//sh: 'python Oscheck.py'
-
 
 
 	stage 'Notify user'
@@ -38,4 +45,14 @@ def notify(status){
       body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
     )
+}
+
+def checkOs(){
+    if (isUnix()) {
+           return "Linux"
+        }
+    }
+    else {
+        return "Windows"
+    }
 }
