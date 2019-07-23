@@ -8,15 +8,23 @@ node {
 	}
 
 
+//stage 'Check os'
+//node{
+
+  //  checkOs
+//}
+
+
 stage 'Run Script'
 node{
 
-    checkOs
-}
+    if (isUnix()) {
+           return "Linux"
+        }
+    else {
+        return "Windows"
+    }
 
-
-stage 'Run Script'
-node{
     //sh: 'python Oscheck.py'
     bat label: '', script: 'python Oscheck.py'
     }
