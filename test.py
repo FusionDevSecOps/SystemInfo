@@ -3,7 +3,7 @@ from sys import platform
 import OsCheck
 import oSCommands
 from oSCommands import oS
-from jsonFormattedWindowsCommands import winSys
+# from jsonFormattedWindowsCommands import winSys
 from JsonEdit import JsonEditer
 from jsonFormattedLinuxCommands import linux
 
@@ -37,29 +37,38 @@ class TestOsCommands(unittest.TestCase):
 
 
 class TestFormattedWindowsCommands(unittest.TestCase):
-    from jsonFormattedWindowsCommands import winSys
 
-    if platform == platform == "win32":
+
+    if platform == "win32":
+        from jsonFormattedWindowsCommands import winSys
 
         def test_Hardware(self):
+
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Hardware(self), dict)
 
         def test_Software(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Software(self), dict)
 
         def test_Firmware(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Driver_Firmware(self), dict)
 
         def test_Services(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Services(self), dict)
 
         def test_Hostname_Startup(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Hostname_Startup(self), dict)
 
         def test_MountedDrivers_MappedNetworks(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.MountedDrivers_MappedNetworks(self), dict)
 
         def test_Env(self):
+            from jsonFormattedWindowsCommands import winSys
             self.assertIsInstance(winSys.Env(self), dict)
 
     else:
@@ -70,7 +79,7 @@ class TestFormattedWindowsCommands(unittest.TestCase):
 
 
 class TestJsonEdit(unittest.TestCase):
-    from jsonFormattedWindowsCommands import winSys
+    # from jsonFormattedWindowsCommands import winSys
 
 
     def test_JsonEdit(self):
@@ -93,29 +102,29 @@ class TestJsonEdit(unittest.TestCase):
 
 
 class TestJsonFormattedLinuxCommands(unittest.TestCase):
-
+    # from jsonFormattedLinuxCommands import linux
     if platform == "linux" or platform == "linux2":
 
         def test_Hardware(self):
-            self.assertIsInstance(linux.Hardware(self), dict)
+            self.assertIsInstance(linux.Hardware(), dict)
 
         def test_Software(self):
-            self.assertIsInstance(linux.Software(self), dict)
+            self.assertIsInstance(linux.Software(), dict)
 
         def test_Firmware(self):
-            self.assertIsInstance(linux.Driver_Firmware(self), dict)
+            self.assertIsInstance(linux.Driver_Firmware(), dict)
 
         def test_Services(self):
-            self.assertIsInstance(linux.Services(self), dict)
+            self.assertIsInstance(linux.Services(), dict)
 
         def test_Hostname_Startup(self):
-            self.assertIsInstance(linux.Hostname_Startup(self), dict)
+            self.assertIsInstance(linux.Hostname_Startup(), dict)
 
         def test_MountedDrivers_MappedNetworks(self):
-            self.assertIsInstance(linux.MountedDrivers_MappedNetworks(self), dict)
+            self.assertIsInstance(linux.MountedDrivers_MappedNetworks(), dict)
 
         def test_Env(self):
-            self.assertIsInstance(linux.Env(self), dict)
+            self.assertIsInstance(linux.Env(), dict)
 
 
     else:
