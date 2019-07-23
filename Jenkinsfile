@@ -25,7 +25,6 @@ stage 'Notify user'
 node{
 	notify 'Ran!'
 	}
-}
 
 stage 'Run tests'
 node{
