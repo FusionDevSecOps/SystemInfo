@@ -9,17 +9,24 @@ node {
 
 stage 'Run Script'
 node{
+
 	bat label: '', script: 'python Oscheck.py'
+	//sh: 'python Oscheck.py'
+
+
 
 	stage 'Notify user'
 	node{
 	notify 'Ran!'
 	}
 }
-//stage 'Run tests'
-//node{
-//       sh 'python test.py'
- //     }
+
+stage 'Run tests'
+node{
+       bat label: '', script: 'python unitTests.py'
+       //sh 'python unitTests.py'
+
+}
 
 
 def notify(status){
