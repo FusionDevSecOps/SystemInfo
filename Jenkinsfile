@@ -32,14 +32,12 @@ stage 'Run tests'
 node{
 if (isUnix()) {
            //return "Linux"
-       sh 'python3 unitTests.py'
+       sh 'python3 test.py'
     }
     else {
         //return "Windows"
-       bat label: '', script: 'python unitTests.py'
+       bat label: '', script: 'python test.py'
     }
-       //bat label: '', script: 'python unitTests.py'
-       //sh 'python unitTests.py'
 
 }
 stage 'Notify user'
