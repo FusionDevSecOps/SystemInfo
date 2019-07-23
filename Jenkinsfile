@@ -11,7 +11,7 @@ node {
 stage 'Run Script'
 node{
 
-withPythonEnv('some-python-installation') {
+withPythonEnv('CPython-2.7') {
 	// Creates the virtualenv before proceeding
 	bat label: '', script: 'pip install nose'
 	//sh 'pip install nose'
