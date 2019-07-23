@@ -32,7 +32,7 @@ stage 'Run tests'
 node{
 if (isUnix()) {
            //return "Linux"
-       sh 'python unitTests.py'
+       sh 'python3 unitTests.py'
     }
     else {
         //return "Windows"
