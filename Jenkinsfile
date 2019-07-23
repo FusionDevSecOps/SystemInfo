@@ -8,12 +8,6 @@ node {
 	}
 
 
-//stage 'Check os'
-//node{
-
-  //  checkOs
-//}
-
 
 stage 'Run Script'
 node{
