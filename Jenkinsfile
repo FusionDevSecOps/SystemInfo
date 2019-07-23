@@ -17,15 +17,12 @@ node{
 
 stage 'Run Script'
 node{
-
     //sh: 'python Oscheck.py'
+    bat label: '', script: 'python Oscheck.py'
+    }
 
-
-	bat label: '', script: 'python Oscheck.py'
-
-
-	stage 'Notify user'
-	node{
+stage 'Notify user'
+node{
 	notify 'Ran!'
 	}
 }
