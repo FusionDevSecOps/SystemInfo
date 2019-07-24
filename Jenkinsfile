@@ -61,6 +61,22 @@ node {
         }
     }
 
+    stage('Archival') {
+        node {
+            publishHTML([allowMissing         : true,
+                         alwaysLinkToLastBuild: false,
+                         keepAll              : true,
+                         reportDir            : 'htmlcov',
+                         reportFiles          : 'index.html',
+                         reportName           : 'Code Coverage',
+                         reportTitles         : ''])
+
+            //archiveArtifacts 'target/*.?ar'
+            archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
+        }
+    }
+
+
     stage 'Notify user'
     node {
         notify 'Run successfully'
