@@ -34,11 +34,11 @@ node{
 
         if (isUnix()) {
             //return "Linux"
-            sh 'python3 test.py'
+            sh 'python3 OsCheck.py'
         }
         else {
             //return "Windows"
-            bat label: '', script: 'python test.py'
+            bat label: '', script: 'python OsCheck.py'
         }
 
     }
@@ -63,6 +63,7 @@ node {
 
     stage('Archival') {
         node {
+        withPythonEnv('Python3') {
             publishHTML([allowMissing         : true,
                          alwaysLinkToLastBuild: false,
                          keepAll              : true,
@@ -74,6 +75,7 @@ node {
             //archiveArtifacts 'target/*.?ar'
             archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
         }
+    }
     }
 
 
