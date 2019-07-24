@@ -38,12 +38,18 @@ stage 'Run tests in virtual environment'
 node{
 
 withPythonEnv('Python3') {
-	// Creates the virtualenv before proceeding
-	bat label: '', script: 'pip install nose'
-    bat label: '', script: 'nosetests'
+
+    if (isUnix()) {
+
 
 	//sh 'pip install nose'
 	//sh 'nosetests'
+    }
+    else {
+	// Creates the virtualenv before proceeding
+	bat label: '', script: 'pip install nose'
+    bat label: '', script: 'nosetests'
+    }
 
 }
 }
