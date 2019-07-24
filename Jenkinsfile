@@ -8,32 +8,6 @@ node {
 	}
 
 
-stage 'Run Script'
-node{
-
-    if (isUnix()) {
-           //return "Linux"
-           sh: 'python3 Oscheck.py'
-        }
-    else {
-        return "Windows"
-        bat label: '', script: 'python Oscheck.py'
-    }
-}
-
-stage 'Run tests'
-node{
-if (isUnix()) {
-           //return "Linux"
-       sh 'python3 test.py'
-    }
-    else {
-        //return "Windows"
-       bat label: '', script: 'python test.py'
-    }
-
-}
-
 stage 'Run tests in virtual environment'
 node{
 // Creates the virtualenv before proceeding
@@ -77,19 +51,16 @@ withPythonEnv('Python3') {
     if (isUnix()) {
     //return "Linux"
 	sh 'pip install coverage '
-	sh 'coverage run C:\pyfund\Exercise2 Oscheck.py'
+	sh 'coverage run Oscheck.py'
 	sh 'coverage html'
     }
     else {
     //return "Windows"
 	bat label: '', script: 'pip install coverage'
-    bat label: '', script: 'coverage run source-directory/python Oscheck.py'
+    bat label: '', script: 'coverage run Oscheck.py'
     bat label: '', script: 'coverage html'
     }
 }
-}
-
-
 
 stage 'Notify user'
 node{
