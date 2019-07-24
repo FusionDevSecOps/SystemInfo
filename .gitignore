@@ -7,6 +7,6 @@
 *coverage_html
 *linux.json
 *windows.json
-__pycache__/JsonEdit.cpython-36.pyc
-__pycache__/JsonEdit.cpython-37.pyc
-__pycache__/oSCommands.cpython-36.pyc
+*__pycache__/JsonEdit.cpython-36.pyc
+*__pycache__/JsonEdit.cpython-37.pyc
+*__pycache__/oSCommands.cpython-36.pyc
