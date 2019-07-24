@@ -67,7 +67,7 @@ node {
             publishHTML([allowMissing         : true,
                          alwaysLinkToLastBuild: false,
                          keepAll              : true,
-                         reportDir            : 'htmlcov',
+                         reportDir            : 'workspace\SystemInfoPythonPipeline\htmlcov',
                          reportFiles          : 'index.html',
                          reportName           : 'Code Coverage',
                          reportTitles         : ''])
