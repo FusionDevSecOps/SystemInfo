@@ -186,7 +186,7 @@ class JsonEditer:
 
         # import json
         # myDict = {}
-        jsonData = json.dumps(myDict)
+        jsonData = json.dumps(myDict, indent=4)
         print(jsonData)
         JsonEditer.saveAsJson(jsonData, os +'.json')
 

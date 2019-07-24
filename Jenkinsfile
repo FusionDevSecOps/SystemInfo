@@ -36,16 +36,16 @@ if (isUnix()) {
 
 stage 'Run tests in virtual environment'
 node{
-
+// Creates the virtualenv before proceeding
 withPythonEnv('Python3') {
 
     if (isUnix()) {
-
-
-	//sh 'pip install nose'
-	//sh 'nosetests'
+    //return "Linux"
+	sh 'pip install nose'
+	sh 'nosetests'
     }
     else {
+    //return "Windows"
 	// Creates the virtualenv before proceeding
 	bat label: '', script: 'pip install nose'
     bat label: '', script: 'nosetests'
@@ -53,6 +53,43 @@ withPythonEnv('Python3') {
 
 }
 }
+stage 'Run Scripts in virtual environment'
+node{
+// Creates the virtualenv before proceeding
+withPythonEnv('Python3') {
+
+   if (isUnix()) {
+           //return "Linux"
+       sh 'python3 test.py'
+    }
+    else {
+        //return "Windows"
+       bat label: '', script: 'python test.py'
+    }
+
+}
+}
+stage 'Run code coverage in virtual environment'
+node{
+// Creates the virtualenv before proceeding
+withPythonEnv('Python3') {
+
+    if (isUnix()) {
+    //return "Linux"
+	sh 'pip install coverage '
+	sh 'coverage run source-directory/python Oscheck.py'
+	sh 'coverage html'
+    }
+    else {
+    //return "Windows"
+	bat label: '', script: 'pip install coverage'
+    bat label: '', script: 'coverage run source-directory/python Oscheck.py'
+    bat label: '', script: 'coverage html'
+    }
+}
+}
+
+
 
 stage 'Notify user'
 node{
@@ -69,11 +106,3 @@ def notify(status){
     )
 }
 
-def checkOs(){
-    if (isUnix()) {
-           return "Linux"
-        }
-    else {
-        return "Windows"
-    }
-}
