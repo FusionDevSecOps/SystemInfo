@@ -77,7 +77,7 @@ withPythonEnv('Python3') {
     if (isUnix()) {
     //return "Linux"
 	sh 'pip install coverage '
-	sh 'coverage run source-directory/python Oscheck.py'
+	sh 'coverage run C:\pyfund\Exercise2 Oscheck.py'
 	sh 'coverage html'
     }
     else {
