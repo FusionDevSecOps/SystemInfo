@@ -5,5 +5,5 @@
 *.coverage
 *._pycache_/
 *coverage_html
-*.linux.json
-*.windows.json
+*linux.json
+*windows.json
