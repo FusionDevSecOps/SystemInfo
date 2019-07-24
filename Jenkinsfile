@@ -1,7 +1,7 @@
 
 stage 'Access repository'
 node {
-
+    cleanWs()
     git branch: 'modify',
             url: 'https://github.com/ColmCharlton/SystemInfo'
 
@@ -51,23 +51,21 @@ node {
         if (isUnix()) {
             //return "Linux"
             sh 'pip install coverage '
-            sh 'coverage run Oscheck.py'
+            sh 'coverage run jsonFormattedLinuxCommands.py'
             sh 'coverage html'
         } else {
             //return "Windows"
             bat label: '', script: 'pip install coverage'
-            bat label: '', script: 'coverage run Oscheck.py'
+            bat label: '', script: 'coverage run jsonFormattedWindowsCommands.py'
             bat label: '', script: 'coverage html'
         }
     }
 
     stage('Archival') {
-        node {
-            withPythonEnv('Python3') {
                 publishHTML([allowMissing         : true,
                              alwaysLinkToLastBuild: false,
                              keepAll              : true,
-                             reportDir            : 'workspace\\SystemInfoPythonPipeline\\htmlcov',
+                             reportDir            : 'htmlcov',
                              reportFiles          : 'index.html',
                              reportName           : 'Code Coverage',
                              reportTitles         : ''])
@@ -76,7 +74,6 @@ node {
                 archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
             }
         }
-    }
 
 
     stage 'Notify user'
@@ -84,7 +81,6 @@ node {
         notify 'Run successfully'
     }
 
-}
 def notify(status) {
     emailext(
             to: "columcharlton@gmail.com",
