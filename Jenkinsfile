@@ -47,6 +47,7 @@ node{
 }
 
     stage('Archival') {
+        node{
         publishHTML([allowMissing         : true,
                      alwaysLinkToLastBuild: false,
                      keepAll              : true,
@@ -57,6 +58,7 @@ node{
 
         //archiveArtifacts 'target/*.?ar'
         archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
+    }
     }
 
 
