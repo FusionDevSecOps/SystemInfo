@@ -18,8 +18,8 @@ node{
             node  {
                 sh 'pip install nose'
                 sh 'pip install coverage'
-            }
-          
+
+
 
                 sh 'nosetests'
                 sh 'coverage run LinuxCommands.py'
