@@ -36,7 +36,7 @@ node{
         } else {
             //"Windows"
             stage 'Install dependencies'
-            node('win') {
+            node('Windows') {
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
