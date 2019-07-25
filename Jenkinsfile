@@ -47,7 +47,7 @@ node {
             }
             stage('Archival') {
                 node {
-                    publishHTML(windows)
+                    publishHTML('windows.json')
 //                    publishHTML([allowMissing         : true,
 //                                 alwaysLinkToLastBuild: false,
 //                                 keepAll              : true,
@@ -111,5 +111,5 @@ publishHTML([allowMissing         : true,
              reportName           : 'Code Coverage',
              reportTitles         : ''])
 
-archiveArtifacts allowEmptyArchive: true, artifacts: "${file}'.json'"
+archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 }
