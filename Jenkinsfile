@@ -33,13 +33,13 @@ node('master') {
         } else {
             //"Windows"
             stage 'Install dependencies'
-            node('master') {
+            node {
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
             }
             stage 'Run tests and code coverage'
-            node('master') {
+            node {
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
                 //bat label: '', script: 'coverage run JsonEdit.py'
@@ -47,12 +47,12 @@ node('master') {
                 bat label: '', script: 'coverage html'
             }
             stage('Archival')
-            node('master') {
+            node {
                 publish 'windows.json'
 
             }
             stage 'Notify user'
-            node('master') {
+            node {
                 notify 'Run successfully'
             }
         }
