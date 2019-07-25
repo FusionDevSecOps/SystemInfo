@@ -7,8 +7,8 @@ node {
 
 }
 
-withPythonEnv('Python3') {
 stage 'Run tests in virtual environment'
+withPythonEnv('Python3') {
 node{
 // Creates the virtualenv before proceeding
 
