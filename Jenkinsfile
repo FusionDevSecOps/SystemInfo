@@ -93,6 +93,6 @@ def publish(file) {
                  reportName           : 'Code Coverage',
                  reportTitles         : ''])
 
-    archiveArtifacts allowEmptyArchive: true, artifacts: "${status}"
+    archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 
 }
