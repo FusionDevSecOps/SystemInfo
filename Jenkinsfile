@@ -4,70 +4,12 @@ node {
     cleanWs()   //Clean the workspace
 
 
-}
-
-stage 'Setup virtual environment'
-node{
-// Creates the virtualenv before proceeding
-    withPythonEnv('Python3') {
-
-
-        if (isUnix()) {
-            //"Linux"
-            stage 'Install dependencies'
-            node('Linux') {
-                git branch: 'modify',
-                        url: 'https://github.com/ColmCharlton/SystemInfo'
-                sh 'pip install nose'
-                sh 'pip install coverage'
-
-                stage 'Run tests and code coverage'
-
-                sh 'nosetests'
-                sh 'coverage run LinuxCommands.py'
-                //sh 'coverage run JsonEdit.py'
-                // sh 'coverage run oScommands.py'
-                sh 'coverage html'
-
-                stage('Archival')
-                publish 'linux.json'
-
-            }
-        } else {
-            //"Windows"
-            stage 'Install dependencies'
-            node('Windows') {
-                bat label: '', script: 'pip install nose'
-                bat label: '', script: 'pip install coverage'
-
-            }
-            stage 'Run tests and code coverage'
-
-
-                bat label: '', script: 'nosetests'
-                bat label: '', script: 'coverage run WindowsCommands.py'
-                //bat label: '', script: 'coverage run JsonEdit.py'
-                //bat label: '', script: 'coverage run oScommands.py'
-                bat label: '', script: 'coverage html'
-
-            stage('Archival')
-
-                publish 'windows.json'
-
-
-            stage 'Notify user'
-
-                notify 'Run successfully'
-
-        }
-
-    }
     stage 'Parallel agents'
     parallel Linux: {
-            node('Linux') {
-                git branch: 'modify',
-                        url: 'https://github.com/ColmCharlton/SystemInfo'
-                 withPythonEnv('Python3') {
+        node('Linux') {
+            git branch: 'modify',
+                    url: 'https://github.com/ColmCharlton/SystemInfo'
+            withPythonEnv('Python3') {
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
@@ -78,25 +20,26 @@ node{
                 // sh 'coverage run oScommands.py'
                 sh 'coverage html'
                 publish 'linux.json'}}},
+
             Windows: {
                 node('Windows'){
-                 git branch: 'modify',
-                        url: 'https://github.com/ColmCharlton/SystemInfo'
+                    git branch: 'modify',
+                            url: 'https://github.com/ColmCharlton/SystemInfo'
 
-                     withPythonEnv('Python3') {
+                    withPythonEnv('Python3') {
                         bat label: '', script: 'pip install nose'
                         bat label: '', script: 'pip install coverage'
 
 
-                    bat label: '', script: 'nosetests'
-                    bat label: '', script: 'coverage run WindowsCommands.py'
-                    //bat label: '', script: 'coverage run JsonEdit.py'
-                    //bat label: '', script: 'coverage run oScommands.py'
-                    bat label: '', script: 'coverage html'
+                        bat label: '', script: 'nosetests'
+                        bat label: '', script: 'coverage run WindowsCommands.py'
+                        //bat label: '', script: 'coverage run JsonEdit.py'
+                        //bat label: '', script: 'coverage run oScommands.py'
+                        bat label: '', script: 'coverage html'
 
-                    publish 'windows.json'
+                        publish 'windows.json'
 
-                    notify 'Run successfully'}}}
+                        notify 'Run successfully'}}}
 }
 
 
@@ -123,5 +66,6 @@ def publish(file) {
     archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 
 }
+
 
 
