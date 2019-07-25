@@ -6,17 +6,18 @@ node {
 
 
     stage 'Parallel agents'
-    parallel Archival: {
+    parallel Linux: {
         node('Linux') {
-            node {
+            node('Linux') {
 
                 git branch: 'modify',
-                        url: 'https://github.com/ColmCharlton/SystemInfo'
+                    url: 'https://github.com/ColmCharlton/SystemInfo'
+
                 // Creates the virtualenv before proceeding
                 withPythonEnv('Python3') {
 
                     //"Linux"
-                  
+
                     node('Linux') {
                         sh 'pip install nose'
                         sh 'pip install coverage'
@@ -32,9 +33,9 @@ node {
                 }
             }
         }
-    }, Notify: {
+    }, Windows: {
         node('win') {
-            node {
+            node('win') {
                 git branch: 'modify',
                         url: 'https://github.com/ColmCharlton/SystemInfo'
 
