@@ -7,11 +7,11 @@ node {
 
 }
 
-withPythonEnv('Python3') {
+
 stage 'Run tests in virtual environment'
 node{
 // Creates the virtualenv before proceeding
-
+    withPythonEnv('Python3') {
 
         if (isUnix()) {
             //return "Linux"
@@ -26,10 +26,11 @@ node{
         }
 
     }
-
+}
 stage 'Run Scripts in virtual environment'
 node{
 // Creates the virtualenv before proceeding
+    withPythonEnv('Python3') {
 
         if (isUnix()) {
             //return "Linux"
@@ -40,19 +41,19 @@ node{
             bat label: '', script: 'python WindowsCommands.py'
         }
 
-
+    }
 }
 stage 'Run code coverage in virtual environment'
 node {
 // Creates the virtualenv before proceeding
-
+    withPythonEnv('Python3') {
 
         if (isUnix()) {
             //return "Linux"
             sh 'pip install coverage '
             sh 'coverage run LinuxCommands.py'
             //sh 'coverage run JsonEdit.py'
-           // sh 'coverage run oScommands.py'
+            // sh 'coverage run oScommands.py'
             sh 'coverage html'
         } else {
             //return "Windows"
@@ -62,27 +63,27 @@ node {
             //bat label: '', script: 'coverage run oScommands.py'
             bat label: '', script: 'coverage html'
         }
-
-}
-    stage('Archival') {
-                publishHTML([allowMissing         : true,
-                             alwaysLinkToLastBuild: false,
-                             keepAll              : true,
-                             reportDir            : 'htmlcov',
-                             reportFiles          : 'index.html',
-                             reportName           : 'Code Coverage',
-                             reportTitles         : ''])
-
-                //archiveArtifacts 'target/*.?ar'
-                archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
-            }
-        }
-
-
-    stage 'Notify user'
-    node {
-        notify 'Run successfully'
     }
+
+    stage('Archival') {
+        publishHTML([allowMissing         : true,
+                     alwaysLinkToLastBuild: false,
+                     keepAll              : true,
+                     reportDir            : 'htmlcov',
+                     reportFiles          : 'index.html',
+                     reportName           : 'Code Coverage',
+                     reportTitles         : ''])
+
+        //archiveArtifacts 'target/*.?ar'
+        archiveArtifacts allowEmptyArchive: true, artifacts: '*.json'
+    }
+}
+
+
+stage 'Notify user'
+node {
+    notify 'Run successfully'
+}
 
 
 def notify(status) {
