@@ -1,6 +1,7 @@
 stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
+    def workspace = pwd()
     git branch: 'modify',
             url: 'https://github.com/ColmCharlton/SystemInfo'
 
@@ -32,13 +33,15 @@ node {
         } else {
             //"Windows"
             stage 'Install dependencies'
-            node {
+            node('master') {
+                ws("${workspace}")
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
             }
             stage 'Run tests and code coverage'
-            node {
+            node('master') {
+                ws("${workspace}")
 
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
@@ -47,12 +50,14 @@ node {
                 bat label: '', script: 'coverage html'
             }
             stage('Archival')
-            node {
+            node('master') {
+                ws("${workspace}")
                 publish 'windows.json'
 
             }
             stage 'Notify user'
-            node {
+            node('master') {
+                ws("${workspace}")
                 notify 'Run successfully'
             }
         }
