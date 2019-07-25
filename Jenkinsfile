@@ -5,8 +5,7 @@ node {
             url: 'https://github.com/ColmCharlton/SystemInfo'
 
 
-    stage 'Parallel agents'
-    parallel Archival: {
+    stage Linux: {
         node('Linux') {
             node('Linux') {
 
@@ -32,34 +31,36 @@ node {
                 }
             }
         }
-    }, Notify: {
-        node('master') {
-            node('master') {
-                git branch: 'modify',
-                        url: 'https://github.com/ColmCharlton/SystemInfo'
 
-                // Creates the virtualenv before proceeding
-                withPythonEnv('Python3') {
+      stage Windows: {
+          node('master') {
+              node('master') {
+                  git branch: 'modify',
+                          url: 'https://github.com/ColmCharlton/SystemInfo'
+
+                  // Creates the virtualenv before proceeding
+                  withPythonEnv('Python3') {
 
 
-                    stage 'Install dependencies'
-                    node('master') {
-                        bat label: '', script: 'pip install nose'
-                        bat label: '', script: 'pip install coverage'
+                      stage 'Install dependencies'
+                      node('master') {
+                          bat label: '', script: 'pip install nose'
+                          bat label: '', script: 'pip install coverage'
 
-                    }
-                    stage 'Run tests and code coverage'
-                    node('master') {
+                      }
+                      stage 'Run tests and code coverage'
+                      node('master') {
 
-                        bat label: '', script: 'nosetests'
-                        bat label: '', script: 'coverage run WindowsCommands.py'
-                        //bat label: '', script: 'coverage run JsonEdit.py'
-                        //bat label: '', script: 'coverage run oScommands.py'
-                        bat label: '', script: 'coverage html'
-                    }
-                }
-            }
+                          bat label: '', script: 'nosetests'
+                          bat label: '', script: 'coverage run WindowsCommands.py'
+                          //bat label: '', script: 'coverage run JsonEdit.py'
+                          //bat label: '', script: 'coverage run oScommands.py'
+                          bat label: '', script: 'coverage html'
+                      }
+                  }
+              }
 
-        }
+          }
+      }
     }
 }
