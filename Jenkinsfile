@@ -16,8 +16,8 @@ node{
             //"Linux"
             stage 'Install dependencies'
             node('Linux') {
-             git branch: 'modify',
-            url: 'https://github.com/ColmCharlton/SystemInfo'
+                git branch: 'modify',
+                        url: 'https://github.com/ColmCharlton/SystemInfo'
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
@@ -59,16 +59,16 @@ node{
 
     }
     stage 'Notify user'
-    node ('win') {
+    node ('Linux') {
         notify 'Run successfully'
     }
     stage 'Parallel agents'
     parallel Linux: {
         node('Linux')
         notify 'Run successfully'},
-        Notify: {
-        node('win')
-        notify 'Run successfully'}
+            Notify: {
+                node('win')
+                notify 'Run successfully'}
 }
 
 
@@ -95,3 +95,4 @@ def publish(file) {
     archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 
 }
+
