@@ -111,5 +111,5 @@ publishHTML([allowMissing         : true,
              reportName           : 'Code Coverage',
              reportTitles         : ''])
 
-archiveArtifacts allowEmptyArchive: true, artifacts:  file + '.json'
+archiveArtifacts allowEmptyArchive: true, artifacts: ${file}'.json'
 }
