@@ -7,7 +7,7 @@ node {
 }
 
 stage 'Setup virtual environment'
-node('Linux'){
+node{
 // Creates the virtualenv before proceeding
     withPythonEnv('python3') {
 
