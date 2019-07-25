@@ -45,7 +45,7 @@ node {
                 //bat label: '', script: 'coverage run oScommands.py'
                 bat label: '', script: 'coverage html'
             }
-            stage('Archival') {
+            stage('Archival')
                 node {
                     publishHTML('windows.json')
 //                    publishHTML([allowMissing         : true,
@@ -63,7 +63,7 @@ node {
 //                    notify 'Run successfully'
 //                }
 
-                }
+
 
             }
 
@@ -111,5 +111,5 @@ publishHTML([allowMissing         : true,
              reportName           : 'Code Coverage',
              reportTitles         : ''])
 
-archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
+archiveArtifacts allowEmptyArchive: true, artifacts: "${file}.json"
 }
