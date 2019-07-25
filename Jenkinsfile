@@ -19,8 +19,7 @@ node{
                 sh 'pip install nose'
                 sh 'pip install coverage'
             }
-            stage 'Run tests and code coverage'
-            node {
+          
 
                 sh 'nosetests'
                 sh 'coverage run LinuxCommands.py'
