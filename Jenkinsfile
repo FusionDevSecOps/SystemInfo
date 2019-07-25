@@ -15,11 +15,13 @@ node {
                 // Creates the virtualenv before proceeding
                 withPythonEnv('Python3') {
 
-                    //"Linux"
+                    stage 'Install dependencies'
+                    node {
                         sh 'pip install nose'
-                        sh 'pip install coverage'
-
-                        stage 'Run tests and code coverage'
+                        sh 'pip install coverage '
+                    }
+                    stage 'Run tests and code coverage'
+                    node {
 
                         sh 'nosetests'
                         sh 'coverage run LinuxCommands.py'
@@ -28,6 +30,7 @@ node {
                         sh 'coverage html'
                     }
                 }
+            }
         }
     }, Notify: {
         node('master') {
@@ -39,14 +42,30 @@ node {
                 withPythonEnv('Python3') {
 
 
-                    bat label: '', script: 'pip install nose'
-                    bat label: '', script: 'pip install coverage'
+                    stage 'Install dependencies'
+                    node {
+                        bat label: '', script: 'pip install nose'
+                        bat label: '', script: 'pip install coverage'
 
-                    bat label: '', script: 'nosetests'
-                    bat label: '', script: 'coverage run WindowsCommands.py'
-                    //bat label: '', script: 'coverage run JsonEdit.py'
-                    //bat label: '', script: 'coverage run oScommands.py'
-                    bat label: '', script: 'coverage html'
+                    }
+                    stage 'Run tests and code coverage'
+                    node {
+
+                        bat label: '', script: 'nosetests'
+                        bat label: '', script: 'coverage run WindowsCommands.py'
+                        //bat label: '', script: 'coverage run JsonEdit.py'
+                        //bat label: '', script: 'coverage run oScommands.py'
+                        bat label: '', script: 'coverage html'
+                    }
+                    stage('Archival')
+                    node {
+                        publish 'windows.json'
+
+                    }
+                    stage 'Notify user'
+                    node {
+                        notify 'Run successfully'
+                    }
                 }
             }
 
