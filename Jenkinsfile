@@ -26,15 +26,21 @@ node{
             }
         else {
             //"Windows"
-            bat label: '', script: 'pip install nose'
-            bat label: '', script: 'pip install coverage'
+            stage 'Install dependencies'
+            node {
+                bat label: '', script: 'pip install nose'
+                bat label: '', script: 'pip install coverage'
 
-            bat label: '', script: 'nosetests'
-            bat label: '', script: 'coverage run WindowsCommands.py'
-            //bat label: '', script: 'coverage run JsonEdit.py'
-            //bat label: '', script: 'coverage run oScommands.py'
-            bat label: '', script: 'coverage html'
+            }
+            stage 'Run tests and code coverage'
+            node {
 
+                bat label: '', script: 'nosetests'
+                bat label: '', script: 'coverage run WindowsCommands.py'
+                //bat label: '', script: 'coverage run JsonEdit.py'
+                //bat label: '', script: 'coverage run oScommands.py'
+                bat label: '', script: 'coverage html'
+            }
         }
 
     }
