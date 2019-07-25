@@ -9,7 +9,7 @@ node {
 
 
 stage 'Setup virtual environment'
-node {
+node('master') {
 // Creates the virtualenv before proceeding
     withPythonEnv('Python3') {
 
@@ -34,15 +34,12 @@ node {
             //"Windows"
             stage 'Install dependencies'
             node('master') {
-                ws("${workspace}")
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
             }
             stage 'Run tests and code coverage'
             node('master') {
-                ws("${workspace}")
-
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
                 //bat label: '', script: 'coverage run JsonEdit.py'
@@ -51,13 +48,11 @@ node {
             }
             stage('Archival')
             node('master') {
-                ws("${workspace}")
                 publish 'windows.json'
 
             }
             stage 'Notify user'
             node('master') {
-                ws("${workspace}")
                 notify 'Run successfully'
             }
         }
