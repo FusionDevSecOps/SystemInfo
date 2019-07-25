@@ -1,15 +1,13 @@
 stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
-    def workspace = pwd()
     git branch: 'modify',
             url: 'https://github.com/ColmCharlton/SystemInfo'
 
 }
 
-
 stage 'Setup virtual environment'
-node('master') {
+node {
 // Creates the virtualenv before proceeding
     withPythonEnv('Python3') {
 
@@ -40,6 +38,7 @@ node('master') {
             }
             stage 'Run tests and code coverage'
             node {
+
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
                 //bat label: '', script: 'coverage run JsonEdit.py'
@@ -58,14 +57,6 @@ node('master') {
         }
 
     }
-    stage 'Parallel agents'
-    parallel Archival: {
-
-        publish 'windows.json'
-
-    }, Notify: {
-        notify 'Run successfully'}
-
 }
 
 
