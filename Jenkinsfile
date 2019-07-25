@@ -46,32 +46,32 @@ node {
                 bat label: '', script: 'coverage html'
             }
             stage('Archival')
-                node {
-                    publishHTML 'windows'
-//                    publishHTML([allowMissing         : true,
-//                                 alwaysLinkToLastBuild: false,
-//                                 keepAll              : true,
-//                                 reportDir            : 'htmlcov',
-//                                 reportFiles          : 'index.html',
-//                                 reportName           : 'Code Coverage',
-//                                 reportTitles         : ''])
-//
-//                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
-                }
-                stage 'Notify user'
-                node {
-                    notify 'Run successfully'
-                }
+            node {
+//                publishHTML 'windows'
+                    publishHTML([allowMissing         : true,
+                                 alwaysLinkToLastBuild: false,
+                                 keepAll              : true,
+                                 reportDir            : 'htmlcov',
+                                 reportFiles          : 'index.html',
+                                 reportName           : 'Code Coverage',
+                                 reportTitles         : ''])
+
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
             }
-
+            stage 'Notify user'
+            node {
+                notify 'Run successfully'
+            }
         }
-    }
 
-
-    stage 'Notify user'
-    node {
-        notify 'Run successfully'
     }
+}
+//
+//
+//stage 'Notify user'
+//node {
+//    notify 'Run successfully'
+//}
 
 
 def notify(status) {
@@ -84,14 +84,14 @@ def notify(status) {
     )
 }
 
-def publishHTML(file) {
-    publishHTML([allowMissing         : true,
-                 alwaysLinkToLastBuild: false,
-                 keepAll              : true,
-                 reportDir            : 'htmlcov',
-                 reportFiles          : 'index.html',
-                 reportName           : 'Code Coverage',
-                 reportTitles         : ''])
-
-    archiveArtifacts allowEmptyArchive: true, artifacts: "${file}.json"
-}
+//def publishHTML(file) {
+//    publishHTML([allowMissing         : true,
+//                 alwaysLinkToLastBuild: false,
+//                 keepAll              : true,
+//                 reportDir            : 'htmlcov',
+//                 reportFiles          : 'index.html',
+//                 reportName           : 'Code Coverage',
+//                 reportTitles         : ''])
+//
+//    archiveArtifacts allowEmptyArchive: true, artifacts: "${file}.json"
+//}
