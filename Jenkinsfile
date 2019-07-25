@@ -64,11 +64,11 @@ node{
     }
     stage 'Parallel agents'
     parallel Linux: {
-        node('Linux')
-        notify 'Run successfully'},
+        node('Linux'){
+        notify 'Run successfully'}},
             Notify: {
-                node('win')
-                notify 'Run successfully'}
+                node('win'){
+                notify 'Run successfully'}}
 }
 
 
