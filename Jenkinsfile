@@ -16,7 +16,7 @@ node {
                 withPythonEnv('Python3') {
 
                     //"Linux"
-                    stage 'Install dependencies'
+                  
                     node('Linux') {
                         sh 'pip install nose'
                         sh 'pip install coverage'
@@ -48,7 +48,6 @@ node {
                     bat label: '', script: 'pip install coverage'
 
 
-                    stage 'Run tests and code coverage'
                     bat label: '', script: 'nosetests'
                     bat label: '', script: 'coverage run WindowsCommands.py'
                     //bat label: '', script: 'coverage run JsonEdit.py'
