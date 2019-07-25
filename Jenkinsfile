@@ -17,7 +17,7 @@ node{
             stage 'Install dependencies'
             node  {
                 sh 'pip install nose'
-                sh 'pip install coverage '
+                sh 'pip install coverage'
             }
             stage 'Run tests and code coverage'
             node {
