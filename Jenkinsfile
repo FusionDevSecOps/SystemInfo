@@ -67,6 +67,7 @@ node{
             node('Linux') {
                 git branch: 'modify',
                         url: 'https://github.com/ColmCharlton/SystemInfo'
+                 withPythonEnv('Python3') {
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
@@ -79,9 +80,13 @@ node{
                 sh 'coverage html'
 
                 stage('Archival')
-                publish 'linux.json'}},
+                publish 'linux.json'}}},
             Windows: {
-                node('win'){
+                node('Windows'){
+                 git branch: 'modify',
+                        url: 'https://github.com/ColmCharlton/SystemInfo'
+
+                     withPythonEnv('Python3') {
                     stage 'Install dependencies'
                         bat label: '', script: 'pip install nose'
                         bat label: '', script: 'pip install coverage'
@@ -99,7 +104,7 @@ node{
 
 
                     stage 'Notify user'
-                    notify 'Run successfully'}}
+                    notify 'Run successfully'}}}
 }
 
 
