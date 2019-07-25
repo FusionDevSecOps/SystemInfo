@@ -7,7 +7,7 @@ node {
 }
 
 stage 'Setup virtual environment'
-node {
+node('Master') {
 // Creates the virtualenv before proceeding
     withPythonEnv('Python3') {
 
@@ -15,7 +15,7 @@ node {
         if (isUnix()) {
             //"Linux"
             stage 'Install dependencies'
-            node {
+            node  {
                 sh 'pip install nose'
                 sh 'pip install coverage '
             }
@@ -31,13 +31,13 @@ node {
         } else {
             //"Windows"
             stage 'Install dependencies'
-            node {
+            node ('Master') {
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
             }
             stage 'Run tests and code coverage'
-            node{
+            node ('Master') {
 
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
@@ -46,12 +46,12 @@ node {
                 bat label: '', script: 'coverage html'
             }
             stage('Archival')
-            node {
+            node ('Master') {
                 publish 'windows.json'
 
             }
             stage 'Notify user'
-            node {
+            node ('Master') {
                 notify 'Run successfully'
             }
         }
