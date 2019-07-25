@@ -6,19 +6,16 @@ node {
 
 
     stage 'Parallel agents'
-    parallel Linux: {
+    parallel Archival: {
         node('Linux') {
-            node('Linux') {
+            node {
 
                 git branch: 'modify',
-                    url: 'https://github.com/ColmCharlton/SystemInfo'
-
+                        url: 'https://github.com/ColmCharlton/SystemInfo'
                 // Creates the virtualenv before proceeding
                 withPythonEnv('Python3') {
 
                     //"Linux"
-
-                    node('Linux') {
                         sh 'pip install nose'
                         sh 'pip install coverage'
 
@@ -31,11 +28,10 @@ node {
                         sh 'coverage html'
                     }
                 }
-            }
         }
-    }, Windows: {
-        node('win') {
-            node('win') {
+    }, Notify: {
+        node('master') {
+            node {
                 git branch: 'modify',
                         url: 'https://github.com/ColmCharlton/SystemInfo'
 
@@ -43,11 +39,8 @@ node {
                 withPythonEnv('Python3') {
 
 
-                    //"Windows"
-                    stage 'Install dependencies'
                     bat label: '', script: 'pip install nose'
                     bat label: '', script: 'pip install coverage'
-
 
                     bat label: '', script: 'nosetests'
                     bat label: '', script: 'coverage run WindowsCommands.py'
