@@ -2,8 +2,7 @@
 stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
-    git branch: 'modify',
-            url: 'https://github.com/ColmCharlton/SystemInfo'
+
 
 }
 
@@ -17,6 +16,8 @@ node{
             //"Linux"
             stage 'Install dependencies'
             node('Linux') {
+             git branch: 'modify',
+            url: 'https://github.com/ColmCharlton/SystemInfo'
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
