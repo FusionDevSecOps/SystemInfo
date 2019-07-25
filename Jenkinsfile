@@ -64,10 +64,41 @@ node{
     }
     stage 'Parallel agents'
     parallel Linux: {
-        node('Linux'){
-            notify 'Run successfully'}},
-            Notify: {
+            node('Linux') {
+                git branch: 'modify',
+                        url: 'https://github.com/ColmCharlton/SystemInfo'
+                sh 'pip install nose'
+                sh 'pip install coverage'
+
+                stage 'Run tests and code coverage'
+
+                sh 'nosetests'
+                sh 'coverage run LinuxCommands.py'
+                //sh 'coverage run JsonEdit.py'
+                // sh 'coverage run oScommands.py'
+                sh 'coverage html'
+
+                stage('Archival')
+                publish 'linux.json'}},
+            Windows: {
                 node('win'){
+                    stage 'Install dependencies'
+                        bat label: '', script: 'pip install nose'
+                        bat label: '', script: 'pip install coverage'
+
+
+                    stage 'Run tests and code coverage'
+                    bat label: '', script: 'nosetests'
+                    bat label: '', script: 'coverage run WindowsCommands.py'
+                    //bat label: '', script: 'coverage run JsonEdit.py'
+                    //bat label: '', script: 'coverage run oScommands.py'
+                    bat label: '', script: 'coverage html'
+
+                    stage('Archival')
+                    publish 'windows.json'
+
+
+                    stage 'Notify user'
                     notify 'Run successfully'}}
 }
 
