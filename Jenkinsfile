@@ -57,6 +57,10 @@ node{
         }
 
     }
+    stage 'Notify user'
+    node ('win') {
+        notify 'Run successfully'
+    }
     stage 'Parallel agents'
     parallel Archival: {
 
