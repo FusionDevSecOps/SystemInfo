@@ -47,24 +47,21 @@ node {
             }
             stage('Archival')
                 node {
-                    publishHTML('windows.json')
-//                    publishHTML([allowMissing         : true,
-//                                 alwaysLinkToLastBuild: false,
-//                                 keepAll              : true,
-//                                 reportDir            : 'htmlcov',
-//                                 reportFiles          : 'index.html',
-//                                 reportName           : 'Code Coverage',
-//                                 reportTitles         : ''])
-//
-//                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
-//                }
-//                stage 'Notify user'
-//                node {
-//                    notify 'Run successfully'
-//                }
+//                    publishHTML('windows')
+                    publishHTML([allowMissing         : true,
+                                 alwaysLinkToLastBuild: false,
+                                 keepAll              : true,
+                                 reportDir            : 'htmlcov',
+                                 reportFiles          : 'index.html',
+                                 reportName           : 'Code Coverage',
+                                 reportTitles         : ''])
 
-
-
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
+                }
+                stage 'Notify user'
+                node {
+                    notify 'Run successfully'
+                }
             }
 
         }
@@ -85,12 +82,11 @@ node {
 //    }
 //
 //
-    stage 'Notify user'
-    node {
-        notify 'Run successfully'
-    }
+//    stage 'Notify user'
+//    node {
+//        notify 'Run successfully'
+//    }
 
-}
 
 def notify(status) {
     //Notify method sends details to email
