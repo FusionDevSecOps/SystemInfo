@@ -7,11 +7,11 @@ node {
 
 }
 
-
+withPythonEnv('Python3') {
 stage 'Run tests in virtual environment'
 node{
 // Creates the virtualenv before proceeding
-    withPythonEnv('Python3') {
+
 
         if (isUnix()) {
             //return "Linux"
