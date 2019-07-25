@@ -63,11 +63,10 @@ node{
         notify 'Run successfully'
     }
     stage 'Parallel agents'
-    parallel Archival: {
-
-        publish 'windows.json'
-
-    }, Notify: {
+    parallel Linux: {
+        node('Linux')
+        notify 'Run successfully'},
+        Notify: {
         node('win')
         notify 'Run successfully'}
 }
