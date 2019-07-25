@@ -9,7 +9,7 @@ node {
 stage 'Setup virtual environment'
 node{
 // Creates the virtualenv before proceeding
-    withPythonEnv('python3') {
+    withPythonEnv('Python3') {
 
 
         if (isUnix()) {
