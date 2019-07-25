@@ -6,6 +6,7 @@ node {
 
 }
 
+
 stage 'Setup virtual environment'
 node {
 // Creates the virtualenv before proceeding
@@ -48,14 +49,6 @@ node {
             stage('Archival')
             node {
                 publish 'windows.json'
-//                    publishHTML([allowMissing         : true,
-//                                 alwaysLinkToLastBuild: false,
-//                                 keepAll              : true,
-//                                 reportDir            : 'htmlcov',
-//                                 reportFiles          : 'index.html',
-//                                 reportName           : 'Code Coverage',
-//                                 reportTitles         : ''])
-
 
             }
             stage 'Notify user'
@@ -65,13 +58,16 @@ node {
         }
 
     }
+    stage 'Parallel agents'
+    parallel Archival: {
+
+        publish 'windows.json'
+
+    }, Notify: {
+        notify 'Run successfully'}
+
 }
-//
-//
-//stage 'Notify user'
-//node {
-//    notify 'Run successfully'
-//}
+
 
 
 def notify(status) {
