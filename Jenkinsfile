@@ -28,6 +28,10 @@ node{
                 //sh 'coverage run JsonEdit.py'
                 // sh 'coverage run oScommands.py'
                 sh 'coverage html'
+
+                stage('Archival')
+                publish 'linux.json'
+
             }
         } else {
             //"Windows"
@@ -57,10 +61,6 @@ node{
             }
         }
 
-    }
-    stage 'Notify user'
-    node ('Linux') {
-        notify 'Run successfully'
     }
     stage 'Parallel agents'
     parallel Linux: {
