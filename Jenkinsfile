@@ -15,7 +15,7 @@ node('Master') {
         if (isUnix()) {
             //"Linux"
             stage 'Install dependencies'
-            node ('Linux') {
+            node {
                 sh 'pip install nose'
                 sh 'pip install coverage '
             }
