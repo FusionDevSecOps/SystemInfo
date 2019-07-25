@@ -57,6 +57,13 @@ node{
         }
 
     }
+    stage 'Parallel agents'
+    parallel Archival: {
+
+        publish 'windows.json'
+
+    }, Notify: {
+        notify 'Run successfully'}
 }
 
 
