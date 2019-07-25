@@ -51,12 +51,12 @@ node {
         if (isUnix()) {
             //return "Linux"
             sh 'pip install coverage '
-            sh 'coverage run jsonFormattedLinuxCommands.py'
+            sh 'coverage run LinuxCommands.py'
             sh 'coverage html'
         } else {
             //return "Windows"
             bat label: '', script: 'pip install coverage'
-            bat label: '', script: 'coverage run jsonFormattedWindowsCommands.py'
+            bat label: '', script: 'coverage run WindowsCommands.py'
             bat label: '', script: 'coverage html'
         }
     }
