@@ -1,4 +1,4 @@
-stage 'Access repository'
+stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
     git branch: 'modify',
@@ -6,25 +6,29 @@ node {
 
 }
 
-stage 'Run tests in virtual environment'
-node{
+stage 'Setup virtual environment'
+node {
 // Creates the virtualenv before proceeding
     withPythonEnv('Python3') {
 
 
         if (isUnix()) {
             //"Linux"
-            sh 'pip install nose'
-            sh 'pip install coverage '
-
-            sh 'nosetests'
-            sh 'coverage run LinuxCommands.py'
-            //sh 'coverage run JsonEdit.py'
-            // sh 'coverage run oScommands.py'
-            sh 'coverage html'
-
+            stage 'Install dependencies'
+            node {
+                sh 'pip install nose'
+                sh 'pip install coverage '
             }
-        else {
+            stage 'Run tests and code coverage'
+            node {
+
+                sh 'nosetests'
+                sh 'coverage run LinuxCommands.py'
+                //sh 'coverage run JsonEdit.py'
+                // sh 'coverage run oScommands.py'
+                sh 'coverage html'
+            }
+        } else {
             //"Windows"
             stage 'Install dependencies'
             node {
@@ -42,28 +46,29 @@ node{
                 bat label: '', script: 'coverage html'
             }
             stage('Archival') {
-                node{
-                    publishHTML([allowMissing         : true,
-                                 alwaysLinkToLastBuild: false,
-                                 keepAll              : true,
-                                 reportDir            : 'htmlcov',
-                                 reportFiles          : 'index.html',
-                                 reportName           : 'Code Coverage',
-                                 reportTitles         : ''])
-
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
-                }
+                node {
+                    publishHTML(windows)
+//                    publishHTML([allowMissing         : true,
+//                                 alwaysLinkToLastBuild: false,
+//                                 keepAll              : true,
+//                                 reportDir            : 'htmlcov',
+//                                 reportFiles          : 'index.html',
+//                                 reportName           : 'Code Coverage',
+//                                 reportTitles         : ''])
+//
+//                    archiveArtifacts allowEmptyArchive: true, artifacts: 'windows.json'
+//                }
 //                stage 'Notify user'
 //                node {
 //                    notify 'Run successfully'
 //                }
 
+                }
+
             }
 
         }
-
     }
-}
 
 //    stage('Archival') {
 //        node{
@@ -80,11 +85,12 @@ node{
 //    }
 //
 //
-stage 'Notify user'
-node {
-    notify 'Run successfully'
-}
+    stage 'Notify user'
+    node {
+        notify 'Run successfully'
+    }
 
+}
 
 def notify(status) {
     //Notify method sends details to email
@@ -96,3 +102,14 @@ def notify(status) {
     )
 }
 
+def publishHTML(file) {
+publishHTML([allowMissing         : true,
+             alwaysLinkToLastBuild: false,
+             keepAll              : true,
+             reportDir            : 'htmlcov',
+             reportFiles          : 'index.html',
+             reportName           : 'Code Coverage',
+             reportTitles         : ''])
+
+archiveArtifacts allowEmptyArchive: true, artifacts:  file + '.json'
+}
