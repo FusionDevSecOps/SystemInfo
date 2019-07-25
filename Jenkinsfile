@@ -52,11 +52,15 @@ node {
             //return "Linux"
             sh 'pip install coverage '
             sh 'coverage run LinuxCommands.py'
+            sh 'coverage run JsonEdit.py'
+            sh 'coverage run oScommands.py'
             sh 'coverage html'
         } else {
             //return "Windows"
             bat label: '', script: 'pip install coverage'
             bat label: '', script: 'coverage run WindowsCommands.py'
+            bat label: '', script: 'coverage run JsonEdit.py'
+            bat label: '', script: 'coverage run oScommands.py'
             bat label: '', script: 'coverage html'
         }
     }
@@ -81,7 +85,9 @@ node {
         notify 'Run successfully'
     }
 
+
 def notify(status) {
+    //Notify method sends details to email
     emailext(
             to: "columcharlton@gmail.com",
             subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
