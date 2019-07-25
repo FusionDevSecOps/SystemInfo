@@ -1,7 +1,7 @@
 
 stage 'Access repository'
 node {
-    cleanWs()
+    cleanWs()   //Clean the workspace
     git branch: 'modify',
             url: 'https://github.com/ColmCharlton/SystemInfo'
 
@@ -34,11 +34,11 @@ node{
 
         if (isUnix()) {
             //return "Linux"
-            sh 'python3 OsCheck.py'
+            sh 'python3 LinuxCommands.py'
         }
         else {
             //return "Windows"
-            bat label: '', script: 'python OsCheck.py'
+            bat label: '', script: 'python WindowsCommands.py'
         }
 
     }

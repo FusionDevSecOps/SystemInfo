@@ -289,7 +289,7 @@ finalDict.update({'Hardware' : winSys().Hardware()})
 
 print(finalDict)
 
-JsonEditer.jsonCreater(finalDict, 'winodws')
+JsonEditer.jsonCreater(finalDict, 'windows')
 
 # Pretty print
 import pprint

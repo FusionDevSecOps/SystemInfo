@@ -12,7 +12,7 @@ class systemCheck:
         if platform == "linux" or platform == "linux2":
             print("Linux\n")
 
-            command = 'python3 jsonFormattedLinuxCommands.py'
+            command = 'python3 LinuxCommands.py'
 
             oS.commandLinux(command)
 
@@ -20,7 +20,7 @@ class systemCheck:
         elif platform == "win32":
             print("Windows\n")
 
-            command = 'python jsonFormattedWindowsCommands.py'
+            command = 'python WindowsCommands.py'
 
             oS.command2(command)
 

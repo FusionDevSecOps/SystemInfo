@@ -5,7 +5,7 @@ import oSCommands
 from oSCommands import oS
 # from jsonFormattedWindowsCommands import winSys
 from JsonEdit import JsonEditer
-from jsonFormattedLinuxCommands import linux
+from LinuxCommands import linux
 
 class TestOsCheck(unittest.TestCase):
 
@@ -40,35 +40,35 @@ class TestFormattedWindowsCommands(unittest.TestCase):
 
 
     if platform == "win32":
-        from jsonFormattedWindowsCommands import winSys
+        from WindowsCommands import winSys
 
         def test_Hardware(self):
 
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Hardware(self), dict)
 
         def test_Software(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Software(self), dict)
 
         def test_Firmware(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Driver_Firmware(self), dict)
 
         def test_Services(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Services(self), dict)
 
         def test_Hostname_Startup(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Hostname_Startup(self), dict)
 
         def test_MountedDrivers_MappedNetworks(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.MountedDrivers_MappedNetworks(self), dict)
 
         def test_Env(self):
-            from jsonFormattedWindowsCommands import winSys
+            from WindowsCommands import winSys
             self.assertIsInstance(winSys.Env(self), dict)
 
     else:
