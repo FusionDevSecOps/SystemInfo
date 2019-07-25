@@ -15,11 +15,11 @@ node{
         if (isUnix()) {
             //"Linux"
             stage 'Install dependencies'
-            node  {
+            node('Linux') {
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
-
+            stage 'Run tests and code coverage'
 
                 sh 'nosetests'
                 sh 'coverage run LinuxCommands.py'
