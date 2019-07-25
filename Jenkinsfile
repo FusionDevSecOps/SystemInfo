@@ -36,39 +36,39 @@ node{
         } else {
             //"Windows"
             stage 'Install dependencies'
-            node {
+            node('win') {
                 bat label: '', script: 'pip install nose'
                 bat label: '', script: 'pip install coverage'
 
             }
             stage 'Run tests and code coverage'
-            node {
+
 
                 bat label: '', script: 'nosetests'
                 bat label: '', script: 'coverage run WindowsCommands.py'
                 //bat label: '', script: 'coverage run JsonEdit.py'
                 //bat label: '', script: 'coverage run oScommands.py'
                 bat label: '', script: 'coverage html'
-            }
+
             stage('Archival')
-            node  {
+
                 publish 'windows.json'
 
-            }
+
             stage 'Notify user'
-            node  {
+
                 notify 'Run successfully'
-            }
+
         }
 
     }
     stage 'Parallel agents'
     parallel Linux: {
         node('Linux'){
-        notify 'Run successfully'}},
+            notify 'Run successfully'}},
             Notify: {
                 node('win'){
-                notify 'Run successfully'}}
+                    notify 'Run successfully'}}
 }
 
 
@@ -95,4 +95,5 @@ def publish(file) {
     archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 
 }
+
 
