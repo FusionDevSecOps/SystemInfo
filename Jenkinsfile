@@ -8,7 +8,7 @@ node {
     stage 'Parallel agents'
     parallel Archival: {
         node('Linux') {
-            node {
+            node('Linux') {
 
                 git branch: 'modify',
                         url: 'https://github.com/ColmCharlton/SystemInfo'
@@ -16,12 +16,12 @@ node {
                 withPythonEnv('Python3') {
 
                     stage 'Install dependencies'
-                    node {
+                    node('Linux') {
                         sh 'pip install nose'
                         sh 'pip install coverage '
                     }
                     stage 'Run tests and code coverage'
-                    node {
+                    node('Linux') {
 
                         sh 'nosetests'
                         sh 'coverage run LinuxCommands.py'
@@ -34,7 +34,7 @@ node {
         }
     }, Notify: {
         node('master') {
-            node {
+            node('master') {
                 git branch: 'modify',
                         url: 'https://github.com/ColmCharlton/SystemInfo'
 
@@ -43,13 +43,13 @@ node {
 
 
                     stage 'Install dependencies'
-                    node {
+                    node('master') {
                         bat label: '', script: 'pip install nose'
                         bat label: '', script: 'pip install coverage'
 
                     }
                     stage 'Run tests and code coverage'
-                    node {
+                    node('master') {
 
                         bat label: '', script: 'nosetests'
                         bat label: '', script: 'coverage run WindowsCommands.py'
@@ -57,18 +57,8 @@ node {
                         //bat label: '', script: 'coverage run oScommands.py'
                         bat label: '', script: 'coverage html'
                     }
-                    stage('Archival')
-                    node {
-                        publish 'windows.json'
-
-                    }
-                    stage 'Notify user'
-                    node {
-                        notify 'Run successfully'
-                    }
                 }
             }
-
 
         }
     }
