@@ -1,3 +1,4 @@
+
 stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
@@ -9,7 +10,6 @@ node {
             git branch: 'modify',
                     url: 'https://github.com/ColmCharlton/SystemInfo'
             withPythonEnv('Python3') {
-
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
@@ -19,7 +19,8 @@ node {
                 //sh 'coverage run JsonEdit.py'
                 // sh 'coverage run oScommands.py'
                 sh 'coverage html'
-                publish 'linux.json'}}},
+                publish 'linux.json','linuxCodeCoverage'
+            }}},
 
             Windows: {
                 node('Windows'){
@@ -37,7 +38,7 @@ node {
                         //bat label: '', script: 'coverage run oScommands.py'
                         bat label: '', script: 'coverage html'
 
-                        publish 'windows.json'
+                        publish 'windows.json', 'winoowsCodeCoverage'
 
                     }}}
     notify 'Run successfully'
@@ -55,18 +56,19 @@ def notify(status) {
     )
 }
 
-def publish(file) {
+def publish(file, reportName) {
     publishHTML([allowMissing         : true,
                  alwaysLinkToLastBuild: false,
                  keepAll              : true,
-                 reportDir            : 'htmlcov',
+                 reportDir            : "${reportDir}",
                  reportFiles          : 'index.html',
-                 reportName           : 'Code Coverage',
+                 reportName           : "${reportName}",
                  reportTitles         : ''])
 
     archiveArtifacts allowEmptyArchive: true, artifacts: "${file}"
 
 }
+
 
 
 
