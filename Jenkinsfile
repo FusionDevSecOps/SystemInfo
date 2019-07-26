@@ -1,4 +1,3 @@
-
 stage 'Clear workspace and Access repository'
 node {
     cleanWs()   //Clean the workspace
@@ -10,6 +9,7 @@ node {
             git branch: 'modify',
                     url: 'https://github.com/ColmCharlton/SystemInfo'
             withPythonEnv('Python3') {
+                stage 'Install dependencies'
                 sh 'pip install nose'
                 sh 'pip install coverage'
 
@@ -39,7 +39,8 @@ node {
 
                         publish 'windows.json'
 
-                        notify 'Run successfully'}}}
+                    }}}
+    notify 'Run successfully'
 }
 
 
