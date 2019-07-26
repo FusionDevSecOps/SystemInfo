@@ -60,7 +60,7 @@ def publish(file, reportName) {
     publishHTML([allowMissing         : true,
                  alwaysLinkToLastBuild: false,
                  keepAll              : true,
-                 reportDir            : "${reportDir}",
+                 reportDir            : 'htmlcov',
                  reportFiles          : 'index.html',
                  reportName           : "${reportName}",
                  reportTitles         : ''])
