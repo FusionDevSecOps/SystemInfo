@@ -7,41 +7,56 @@ node {
     stage 'Parallel agents'
     parallel Linux: {
         node('Linux') {
+            stage ('Clear workspace and Access repository'){
             git branch: 'modify',
                     url: 'https://github.com/ColmCharlton/SystemInfo'
+            }
             withPythonEnv('Python3') {
+
+                stage ('Install dependencies'){
                 sh 'pip install nose'
                 sh 'pip install coverage'
+                }
 
-
-                sh 'nosetests'
-                sh 'coverage run LinuxCommands.py'
-                //sh 'coverage run JsonEdit.py'
-                // sh 'coverage run oScommands.py'
-                sh 'coverage html'
+                stage ('Run tests and code coverage') {
+                    sh 'nosetests'
+                    sh 'coverage run LinuxCommands.py'
+                    //sh 'coverage run JsonEdit.py'
+                    // sh 'coverage run oScommands.py'
+                    sh 'coverage html'
+                }
+                stage ('Publish report') {
                 publish 'linux.json','linuxCodeCoverage'
+                }
             }}},
 
             Windows: {
                 node('Windows'){
-                    git branch: 'modify',
-                            url: 'https://github.com/ColmCharlton/SystemInfo'
+                    stage ('Clear workspace and Access repository') {
+                        git branch: 'modify',
+                                url: 'https://github.com/ColmCharlton/SystemInfo'
+                    }
 
                     withPythonEnv('Python3') {
-                        bat label: '', script: 'pip install nose'
-                        bat label: '', script: 'pip install coverage'
+                        stage ('Install dependencies') {
+                            bat label: '', script: 'pip install nose'
+                            bat label: '', script: 'pip install coverage'
+                        }
 
-
-                        bat label: '', script: 'nosetests'
-                        bat label: '', script: 'coverage run WindowsCommands.py'
-                        //bat label: '', script: 'coverage run JsonEdit.py'
-                        //bat label: '', script: 'coverage run oScommands.py'
-                        bat label: '', script: 'coverage html'
-
-                        publish 'windows.json', 'winoowsCodeCoverage'
-
+                        stage ('Run tests and code coverage') {
+                            bat label: '', script: 'nosetests'
+                            bat label: '', script: 'coverage run WindowsCommands.py'
+                            //bat label: '', script: 'coverage run JsonEdit.py'
+                            //bat label: '', script: 'coverage run oScommands.py'
+                            bat label: '', script: 'coverage html'
+                        }
+                        stage ('Publish report') {
+                            publish 'windows.json', 'winoowsCodeCoverage'
+                        }
                     }}}
-    notify 'Run successfully'
+    stage ('Notify user') {
+        notify 'Run successfully'
+    }
 }
 
 
