@@ -1,21 +1,11 @@
-#!/usr/bin/python3
-import build
-
-build.main(__name__)
+from pybuilder.core import use_plugin
 
 
-class Config(build.Config):
-  # Put your options here
-  # Defaults:
-  # Default task
-  default = 'build'
-  # Languages to build (lang/<lang>.py)
-  languages = []
-  # Default output directory
-  out = 'out'
-  # Whether to preserve output paths (src/dir/file.py -> out/dir/file.py or out/file.py)
-  preserve_paths = True
-  # Enable builtin tasks (build etc.)
-  builtins = True
+use_plugin("python.core")
+#use_plugin("python.unittest")
+#use_plugin("python.coverage")
+use_plugin("python.install_dependencies")
 
-# Or remove the class above and put your options here
+
+
+default_task = "publish"
