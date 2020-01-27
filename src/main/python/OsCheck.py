@@ -1,5 +1,5 @@
 from sys import platform
-from oSCommands import oS
+from src.main.python.oSCommands import oS
 # import WinSystem
 
 

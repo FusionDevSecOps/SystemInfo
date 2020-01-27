@@ -1,5 +1,5 @@
-from JsonEdit import JsonEditer
-from oSCommands import oS
+from src.main.python.JsonEdit import JsonEditer
+from src.main.python.oSCommands import oS
 import json
 import re
 

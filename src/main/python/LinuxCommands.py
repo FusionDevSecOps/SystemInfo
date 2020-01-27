@@ -6,8 +6,8 @@ import time
 import json
 import re
 import ast
-from oSCommands import oS
-from JsonEdit import JsonEditer
+from src.main.python.oSCommands import oS
+from src.main.python.JsonEdit import JsonEditer
 
 class linux:
     timeStr = time.strftime("%Y%m%d-%H%M%S")

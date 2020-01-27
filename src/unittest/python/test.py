@@ -1,22 +1,22 @@
 import unittest
 from sys import platform
-import OsCheck
-import oSCommands
-from oSCommands import oS
+import src.main.python.OsCheck
+import src.main.python.oSCommands
+from src.main.python.oSCommands import oS
 # from jsonFormattedWindowsCommands import winSys
-from JsonEdit import JsonEditer
-from LinuxCommands import linux
+from src.main.python.JsonEdit import JsonEditer
+from src.main.python.LinuxCommands import linux
 
 class TestOsCheck(unittest.TestCase):
 
     def test_os(self):
-        os = OsCheck.systemCheck()
+        os = src.main.python.OsCheck.systemCheck()
         a = platform
         self.assertEqual(os.platfrom(), platform)
 
 
 class TestOsCommands(unittest.TestCase):
-    from oSCommands import oS
+    from src.main.python.oSCommands import oS
 
 
     def test_command2(self):
@@ -40,35 +40,35 @@ class TestFormattedWindowsCommands(unittest.TestCase):
 
 
     if platform == "win32":
-        from WindowsCommands import winSys
+        from src.main.python.WindowsCommands import winSys
 
         def test_Hardware(self):
 
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Hardware(self), dict)
 
         def test_Software(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Software(self), dict)
 
         def test_Firmware(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Driver_Firmware(self), dict)
 
         def test_Services(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Services(self), dict)
 
         def test_Hostname_Startup(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Hostname_Startup(self), dict)
 
         def test_MountedDrivers_MappedNetworks(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.MountedDrivers_MappedNetworks(self), dict)
 
         def test_Env(self):
-            from WindowsCommands import winSys
+            from src.main.python.WindowsCommands import winSys
             self.assertIsInstance(winSys.Env(self), dict)
 
     else:
